@@ -1,0 +1,51 @@
+<nav>
+  <%= link_to 'Back to lists', root_path %>
+  <%= link_to 'Add new list', new_list_path %>
+</nav>
+
+<h4>Scan Products</h4>
+<p>
+  <%- if @list.name %>
+    Adding products to the list:
+    <b><%= @list.name %></b>
+  <% end %>
+</p>
+
+<%- if @list.items.present? %>
+  <h5>Click exit to see the result</h5>
+  <%= link_to list_results_path(@list) do %>
+    <button>Exit</button>
+  <% end %>
+<% end %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Enter Barcode</th>
+      <th>Scan from CSV</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <%= form_with url: list_items_path(@list), remote: true do |f| %>
+          <%= f.text_field :barcode, size: 10, maxlength: 10%>
+          <%= f.submit 'Scan' %>
+        <% end %>
+      </td>
+      <td colspan="2">
+        <%= form_with url: list_multiple_items_scanning_index_path(@list), remote: true do |f| %>
+          <%= f.file_field :file %>
+          <%= f.submit 'Scan' %>
+        <% end %>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<%- if @list.products.present? %>
+  <%= render partial: 'shared/table', locals: {rows: @list.products} %>
+<% else %>
+  <p>No produsts were added to list yet </br> Add new one</p>
+<% end %>

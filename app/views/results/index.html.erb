@@ -1,0 +1,19 @@
+<nav>
+  <%= link_to "Back to #{@list.name} list", list_path(@list) %>
+  <%= link_to 'Back to lists', root_path %>
+</nav>
+
+<h4>
+  Scanning results
+  <%- if @list.name%> for list: <%= @list.name %> <% end %>
+</h4>
+
+<%- if @list.products.present? %>
+  <h5>Total price: <%= money_formatter(@total_price) %></h5>
+  <%= link_to list_pdf_printer_index_path(@list) do %>
+    <button>Print</button>
+  <% end %>
+  <%= render partial: 'shared/table', locals: {rows: @list.products} %>
+<%- else %>
+  <p>No products present</p>
+<% end %>

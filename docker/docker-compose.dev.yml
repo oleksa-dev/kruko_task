@@ -1,0 +1,36 @@
+version: "3.7"
+services:
+  app:
+    tty: true
+    stdin_open: true
+    env_file: .env
+    build:
+      dockerfile: ./docker/Dockerfile
+      context: .
+      args:
+        - BUILD_ENV=${RAILS_ENV}
+    working_dir: /src
+    volumes:
+      - .:/src
+    ports:
+      - 3040:3000
+    networks:
+      - backend
+  db:
+    image: postgres:13-alpine
+    env_file: .env
+    restart: always
+    environment:
+      POSTGRES_DB: ${KRUKO_TASK_DB_NAME}
+      POSTGRES_USER: ${KRUKO_TASK_DB_USERNAME}
+      POSTGRES_PASSWORD: ${KRUKO_TASK_DB_PASSWORD}
+    ports:
+      - 3045:5432
+    volumes:
+      - ../pgdata/kruko_task:/var/lib/postgresql/data
+    networks:
+      - backend
+
+networks:
+  backend:
+    name: kruko_task

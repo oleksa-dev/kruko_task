@@ -1,0 +1,29 @@
+<h4>
+  Tolal products
+  <%- if title.present? %>for list: <%= title %><% end %>
+</h4>
+
+<table>
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Poduct Name</th>
+      <th>Price</th>
+    </tr>
+  </thead>
+  <tbody>
+    <%- data.each_with_index do |row, idx| %>
+      <tr>
+        <td><%= idx + 1%></td>
+        <td><%= row.name%></td>
+        <td><%= money_formatter(row.price)%></td>
+      </tr>
+    <% end %>
+    <%- if total.present? %>
+      <row>
+        <td colspan="2">Total price:</td>
+        <td><%= money_formatter(total)%></td>
+      </row>
+    <% end %>
+  </tbody>
+</table>

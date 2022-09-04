@@ -1,0 +1,9 @@
+<%= form_with model: list do |form| %>
+  <p>
+    <b>List name</b><br>
+    <%= form.text_field :name %>
+  </p>
+  <p>
+    <%= form.submit %>
+  </p>
+<% end %>

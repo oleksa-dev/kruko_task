@@ -1,0 +1,14 @@
+<h4>Scanned Products</h4>
+<%= link_to new_list_path do %>
+  <button>Add List</button>
+<% end %>
+
+<%- if @lists.present? %>
+  <ul>
+    <%- @lists.each do |item|%>
+      <li><%= link_to item.name, list_path(item) %></li>
+    <% end %>
+  </ul>
+<% else %>
+<p>No lists were added yet </br> Add new one</p>
+<% end %>

@@ -1,0 +1,14 @@
+<table>
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Poduct Name</th>
+      <th>Price</th>
+    </tr>
+  </thead>
+  <tbody>
+    <%- rows.each_with_index do |row, idx| %>
+      <%= render partial: "shared/row", locals: {idx: idx, row: row} %>
+    <% end %>
+  </tbody>
+</table>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>KrukoTask</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag "https://cdn.simplecss.org/simple.min.css" %>
+  </head>
+
+  <body>
+    <% if current_user %>
+      <nav class="log-out">
+        <span class="log-out__email"><%= current_user.email%></span>
+        <%= link_to destroy_user_session_path do %>
+          <button>Log Out</button>
+          <% end %>
+        <% end %>
+      </nav>
+    <%- if notice %>
+      <p class="notice"><%= notice %></p>
+    <% end %>
+    <%- if alert %>
+      <p class="alert"><%= alert %></p>
+    <% end %>
+    <%= yield %>
+  </body>
+</html>
